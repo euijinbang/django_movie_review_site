@@ -1,5 +1,7 @@
 # movies 구현
 
+![movies](/Users/euijinpang/django_movie_review_site/README.assets/movies.jpg)
+
 ## 목표
 
 - 데이터 생성, 조회, 수정, 삭제
@@ -121,7 +123,6 @@ app_name, name 사용
 ## View & Template
 
 - 공유 템플릿 생성 및 사용
-
 
 
 
