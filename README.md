@@ -1,6 +1,6 @@
 # movies 구현
 
-![movies](/Users/euijinpang/django_movie_review_site/README.assets/movies.jpg)
+![movies](README.assets/movies.jpg)
 
 ## 목표
 
