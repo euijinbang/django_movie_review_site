@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <form action="" method="POST">
+  {% csrf_token %}
+
+  {{ form.as_p }}
+
+{% comment %} create 과 updat를 form 으로 퉁치고 싶다면.........공짜로는 안되네...^^ {% endcomment %}
+{% comment %} 
+{% if request.resolver_match.url_name == 'create' %}
+  <h1>create</h1>
+{% elif request.resolver_match.url_name == 'update' %}
+  <h1>update</h1>
+{% endif %} {% endcomment %}
+
+{% comment %} create 과 updat를 form 으로 퉁치고 싶다면.......경로는 따로 지정할 필요가 없다네...^^ {% endcomment %}
+
+  <input type="submit" value="등록 및 수정하기" class="btn btn-primary"> 
+    
+{% endblock content %}
