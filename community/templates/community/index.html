@@ -6,10 +6,10 @@
   <br>
   {% for review in reviews %}
     <div>
-    {% comment %} detail로 url 요청시 pk도 함께 보낸다 {% endcomment %}
-    <a href="{% url 'community:detail' review.pk %}">{{ review.title }}</a>
-    {{ review.content }} 
-    <hr>
+      {% comment %} detail로 url 요청시 pk도 함께 보낸다 {% endcomment %}
+      <a href="{% url 'community:detail' review.pk %}">{{ review.title }}</a>
+      {{ review.content }} 
+      <hr>
     </div>
   {% endfor %}
 {% endblock content %}

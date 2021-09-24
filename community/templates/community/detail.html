@@ -4,14 +4,10 @@
   {{ review.movie_title}}
   {{ review.title }}
   {{ review.content }}
-
-  {% comment %} 업데이트, 삭제 모두 pk 정와 함께 보낸다 {% endcomment %}
-
-  <a href="{% url "community:udpate" reveiw.pk %}">수정하기</a>
-  
-  <form action="{% url "community:delete" reveiw.pk %}" method="POST">
-  {% csrf_token %}
-  <input type="submit" class="btn btn-danger" value="삭제하기">
+  {% comment %} 업데이트, 삭제 모두 pk와 함께 보낸다 {% endcomment %}
+  <a href="{% url 'community:update' review.pk %}">수정하기</a>
+  <form action="{% url 'community:delete' review.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" class="btn btn-danger" value="삭제하기">
   </form>
-  
 {% endblock content %}

@@ -1,4 +1,50 @@
+
+
 # movies 구현
+
+---
+
+## 0925 update
+
+1. 오류 수정 
+
+   1. 원인 : update.html 의 수정 버튼의 action 을 실행할 때, Url과 함께 해당 게시글의 pk 정보도 함께 보내야 한다. 
+   2. 해결방안 : review.pk 를 함께 전달
+
+   ```python
+   {% comment %} pk 정보를 꼭 함께 전송하자!! {% endcomment %}
+   <form action="{% url 'community:update' review.pk %}" method="POST">
+   {% csrf_token %}
+   {{ form.as_p }}
+   <input type="submit" value="수정하기" class="btn btn-primary">
+   </form>
+   ```
+
+2. 장고 숏컷 추가 : get_object_or_404(ModelClass, pk=pk)
+
+```python
+review = get_object_or_404(Review, pk=pk)
+# review = Review.objects.get(pk=pk) 
+```
+
+3. HTTP 데코레이터 추가
+
+```python
+from django.views.decorators.http import require_http_methods, require_POST
+
+@require_http_methods(["GET", "POST"]) 
+@require_POST
+```
+
+4. HTML 들여쓰기 수정, form 태그 오류 수정
+
+5. 오타수정
+
+6. ' ' 경로는 홑따옴표로 통일
+
+---
+
+
 
 ![movies](README.assets/movies.jpg)
 
