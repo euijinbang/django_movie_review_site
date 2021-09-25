@@ -9,6 +9,7 @@ from django.views.decorators.http import require_http_methods, require_POST, req
 from django.contrib.auth.decorators import login_required, permission_required
 
 
+
 # 인덱스 함수 : 등록한 리뷰를 Model에서 ORM으로 불러온다.
 def index(request):
     reviews = Review.objects.all()

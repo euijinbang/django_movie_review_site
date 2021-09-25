@@ -1,15 +1,98 @@
-
-
 # movies 구현
 
 ---
 
 ## 0925 update
 
-1. 오류 수정 
+1. 오류 수정 (Logout)
+
+   1. 원인 : logout view 함수는 Post 만 허용하도록 데코레이터를 붙였음. 그러나 인덱스 페이지에서 post 방식이 아닌 get 방식의 링크로 url이 연결
+   2. 해결 : logout 을 form 형식으로 POST 전송
+
+2. 로그인 구현
+
+   1. AuthenticationForm 은 request를 첫 인자로 받음
+   2. login 함수이름이 중복되는 것을 막기위해 함수명 변경
+   3. auth_login의 두 가지 인자(requst, user) 를 받아오기 위해 form.get_user() 사용
+
+3. 로그인 사용자에 대한 접근 제한 구현
+
+   1. is_authenticated 속성을 활용하여 로그인과 비로그인 상태에서 출력되는 링크를 다르게 설정(html)
+
+   2. is_authenticated 속성을 활용하여 로그인 상태라면 로그인하지 못하도록 막는다(view)
+
+   3. is_authenticated 속성을 활용하여 로그아웃 상태라면 로그아웃을 하지 못하도록 막는다 (로그인 상태에서만 로그아웃 하도록 한다)(view)
+
+   4. @login_required  데코레이터를 사용하여 로그인되어있지 않으면 기본 설정 경로로 리다이렉트하고 로그인되어있으면 정상적으로 함수를 실행
+
+   5. 인증성공시 기존 요청주소로 리다이렉트(view) 
+
+      ```python
+      return redirect(request.GET.get('next') or '기존url')
+      ```
+
+4. 회원탈퇴 구현
+   1. 회원정보 변경 내 링크 연결
+   2. 회원가입 후 자동로그인 구현
+
+```python
+if form.is_valid():
+  # 회원가입 후 자동로그인 진행
+  user = form.save()
+  auth_login(request, user)
+return redirect('community:index')
+```
+
+5. 회원탈퇴 후 자동로그아웃 구현
+
+```python
+def delete(request):
+    if request.user.is_authenticated:
+        request.user.delete()
+        auth_logout(request)
+        return redirect('community:index')
+```
+
+6. 유정정보 구현
+   1. UserChangeForm 을 상속받는 CustomUserChangeForm 을 새롭게 정의
+7. 암호변경 구현
+   1. PasswordChangeForm 사용 (인자 request.user)
+
+8. 암호 변경시 세션 무효화 방지 추가
+
+```python
+if form.is_valid():
+  form.save()
+  update_session_auth_hash(request, form.user)
+	return redirect('community:index')
+```
+
+9. admin 페이지 내 Model 출력 구현
+
+```python
+# admin.py
+from django.contrib import admin
+from .models import Review
+
+# Register your models here.
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'movie_title', 'title', 'rank', 'content')
+
+admin.site.register(Review, ReviewAdmin)
+```
+
+
+
+---
+
+
+
+## 0924 update
+
+1. 오류 수정 (Update)
 
    1. 원인 : update.html 의 수정 버튼의 action 을 실행할 때, Url과 함께 해당 게시글의 pk 정보도 함께 보내야 한다. 
-   2. 해결방안 : review.pk 를 함께 전달
+   2. 해결 : review.pk 를 함께 전달
 
    ```python
    {% comment %} pk 정보를 꼭 함께 전송하자!! {% endcomment %}
@@ -92,7 +175,6 @@ from django.views.decorators.http import require_http_methods, require_POST
         - 응답으로 signup.html 제공
         - form 작성정보는 POST 방식으로 제출
         - 회원가입 form 요소
-        - 
       - HTTP method POST
         - 데이터 유효하면 전송된 데이터를 데이터베이스에 저장
         - 그 후 사용자를 인증(로그인)하고 전체 리뷰 목록 페이지로 redirect
@@ -104,7 +186,6 @@ from django.views.decorators.http import require_http_methods, require_POST
         - 응답으로 login.html 제공
         - POST방식으로 form 제출
         - 로그인 form
-        - 
       - HTTP method POST
         - 데이터 유효시 사용자 인증(로그인)
           - 로그인 하기 전 페이지 URL 이 함께 전송된 경우, 로그인 이후 해당 URL로 redirect

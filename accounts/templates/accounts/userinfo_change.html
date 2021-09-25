@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <form action="" method="POST">
+    {% csrf_token %}
+    <h2>회원정보 변경</h2>
+    {{ form.as_p }}
+    <input type="submit" value="변경완료" class="btn btn-primary">
+  </form>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="회원탈퇴" class="btn btn-danger">
+  </form>
+
+{% endblock content %}
