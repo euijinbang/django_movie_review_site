@@ -2,6 +2,15 @@
 
 ---
 
+## 소감
+
+Django Framework 장고 프레임워크로 웹페이지를 구현할 때, 로그인을 구현하기 위해 장고 내의 ModelForm 을 활용하는 부분에서 어려움이 있었습니다.
+어떤 경로에서 모델폼을 불러와야 할지, 폼은 어떻게 사용해야 하는지, 폼에는 어떠한 인자를 넣어야 하는지 등, Django 가 지닌 특징적인 요소를 익혀야 했습니다.
+이를 맞추지 못하면 서버 에러가 나고, 에러페이지에서 원인을 찾아야 했습니다.
+
+이를 해결하기 위해 1) 장고 공식 홈페이지에 들어가서 모든 문서를 살펴보고 2) 장고 github에 들어가 파일경로를 확인하며,  form 을 불러오는 경로를 이해하였습니다. 또한 class 와 그 클래스들의 하위 class 를 타고 들어가며 클래스와 메서드, 객체지향 프로그래밍을 이해하기 위해 노력하였습니다. 
+그 결과 장고의  인증폼 authenticationForm (모델폼) 뿐만 아니라 MTV model (Model, Template, View) 모델을 총체적으로 이해할 수 있었고 추가적인 회원탈퇴나 회원정보수정, 비밀번호 수정 등을 구현할 때도 클래스, 메서드에 대한 이해를 바탕으로 큰 어려움 없이 웹페이지를 구현할 수 있었습니다.
+
 ## 0925 update
 
 1. 오류 수정 (Logout)
@@ -53,7 +62,7 @@ def delete(request):
         return redirect('community:index')
 ```
 
-6. 유정정보 구현
+6. 유저정보 구현
    1. UserChangeForm 을 상속받는 CustomUserChangeForm 을 새롭게 정의
 7. 암호변경 구현
    1. PasswordChangeForm 사용 (인자 request.user)
@@ -166,6 +175,8 @@ from django.views.decorators.http import require_http_methods, require_POST
 5. 부트스트랩으로 꾸미기
 
 
+
+
 ## 상세정보
 1. 계정관리 앱 (accounts)
    1. 회원가입 : 신규 사용자 생성
@@ -238,14 +249,20 @@ from django.views.decorators.http import require_http_methods, require_POST
 1. Review 모델
 2. 사용자(User) 모델 : 장고 기본모델 사용
 
+
+
 ## Form
 
 1. Review 모델의 데이터 검증, 저장, 에러메세지, HTML 관리 위해 ModelForm 사용
 2. User 모델의 데이터 검증, 저장, 에러메세지, HTML 관리 위해 장고제공 ModelForm, Form 사용
 
+
+
 ## URL
 
 app_name, name 사용
+
+
 
 ## View & Template
 
